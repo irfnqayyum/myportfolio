@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Web Design Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-image .placeholder-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            z-index: 1;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .project-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-item h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            color: #666;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modal for Project Details */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #667eea;
+        }
+
+        .case-study h3 {
+            color: #667eea;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .case-study p, .case-study ul {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .case-study ul {
+            padding-left: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="container">
+        <div class="logo">My Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">My Projects</a></li>
+            <li><a href="#contact">Contact me!</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Hey, I'm Irfan Qayyum. Here, you can check out my work as an UniKL students for 3 semesters ;) </h1>
+            <p>"No man ever steps in the same river twice. For it’s not the same river and he’s not the same man.” Heraclitus</p>
+            <a href="#projects" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="profile-image">
+                    <img src="images/imageIQ.jpg" alt="Your Name" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div class="about-text">
+                    <h3>Hello! I'm Muhammad Irfan Qayyum Bin Shazali @ Azamannizam</h3>
+                    <p><strong>Background & Education:</strong> I am currently pursuing my studies in Bachelor of Cyber Security at UniKL MIIT, where I am developing my passion for all things cyber security as I always wanted to be a hacker. My journey into Internet security began with my fascination when watching the movie "Blackhat", it immediately peaked my interest for hacking. It is very fascinating how a person can gain access into the system by just pressing few buttons on a keyboard.</p>
+
+                    <p><strong>Philosophy:</strong> I believe that to do anything you need to have passion for it in order to do it well. We must also seek help from the The Almighty Creator, Allah SWT.</p>
+
+                    <p><strong>Skills & Approach:</strong> I focus on responsive design, user-centered thinking, and accessibility compliance. My design process always starts with understanding the user's needs and business objectives, followed by research, wireframing, prototyping, and iterative testing to ensure optimal results.</p>
+
+                    <p><strong>Future Goals:</strong> As i continue to grow in this field, I aim to be a jack of all trades in Cyber Security but also make a positive impact on people's lives especially my family.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card" onclick="openModal('project1')">
+                    <div class="project-image">
+                        <!-- Replace src with your actual image path -->
+                        <img src="images/SBP.png" alt="Fashion Forward E-commerce Store" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-text" style="display: none;">E-Commerce Store</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Smart Bumper System - A project using IOT</h3>
+                        <p>Enhance road safety by leveraging advanced technology to dynamically control vehicle speeds in critical areas.</p>
+                        <div class="project-tags">
+                            <span class="tag">IOT</span>
+                            <span class="tag">Road Safety</span>
+                            <span class="tag">IT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project2')">
+                    <div class="project-image">
+                        <img src="images/SIRIM.png" alt="LearnHub Educational Platform" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-text" style="display: none;">Educational Platform</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Interview at SIRIM on Their IT Security Implementation </h3>
+                        <p>Interviewing the premier body of regulations and standards in Malaysia.</p>
+                        <div class="project-tags">
+                            <span class="tag">Education</span>
+                            <span class="tag">IT Security</span>
+                            <span class="tag">Interview</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project3')">
+                    <div class="project-image">
+                        <img src="images/rasuah.jpg">
+                        <div class="placeholder-text" style="display: none;">Restaurant Website</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Belia Bersatu Tolak Rasuah</h3>
+                        <p>Lecture on corruption in Malaysia by Tuan Haji Jais Abdul Karim.</p>
+                        <div class="project-tags">
+                            <span class="tag">Event</span>
+                            <span class="tag">Lecture</span>
+                            <span class="tag">Integrity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project4')">
+                    <div class="project-image">
+                        <img src=images/CarLoan.png>
+                    </div>
+                    <div class="project-content">
+                        <h3>Car Loan Calculator</h3>
+                        <p>Helps new car buyer calculate their monthly payment quickly and efficiently.</p>
+                        <div class="project-tags">
+                            <span class="tag">Car</span>
+                            <span class="tag">Calculator</span>
+                            <span class="tag">Coding</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project5')">
+                    <div class="project-image">
+                        <img src="images/movie.png" onerror="this.style.display='none'; this.nextElementSibling.style.disply='flex';">
+                    </div>
+                    <div class="project-content">
+                        <h3>Movie Ticketing Booking System</h3>
+                        <p>Centralized database for movie ticket purchase record</p>
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Coding</span>
+                            <span class="tag">Database</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project6')">
+                    <div class="project-image">
+                        <img src="images/culture.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-text" style="display: none;">Travel Blog</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Culture Day - PE1 Project</h3>
+                        <p>Finding out different culture from arround the world</p>
+                        <div class="project-tags">
+                            <span class="tag">Event</span>
+                            <span class="tag">Culture</span>
+                            <span class="tag">Visual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always interested in discussing new opportunities and creative projects. Let's connect and create something amazing together!</p>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>qayyummq7@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Phone</h4>
+                        <p>+60 17-605 9802</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Location</h4>
+                        <p>Kuala Lumpur, Malaysia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 [Irfan Qayyum]. All rights reserved. | UniKL MIIT - IMB 11703</p>
+    </div>
+</footer>
+
+<!-- Modal for Project Details -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalContent"></div>
+    </div>
+</div>
+
+<script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Project case studies data
+    const projectData = {
+        project1: {
+            title: "Smart Bumper System - A project using IOT",
+            overview: "Traditional speed bumps, while effective in reducing vehicle speeds, often pose significant drawbacks such as discomfort for all drivers, potential vehicle damage, and disruptions to traffic flow. These issues highlight the need for an innovative solution that can maintain the effectiveness of speed reduction without causing unnecessary inconvenience.",
+            role: "Lead Architecture Developer - Built the circuit from scratch, conducted traffic flow survey.",
+            process: [
+                "Ensuring precise speed detection",
+                "Ensuring the mechanical system of the speed bump runs dependably",
+                "Cost Challenge. High first installation and development expenses",
+                "Society acceptance and user adoption",
+                "Scalability Challenges",
+                "Conducted usability testing with 15 different vehicles",
+                "Iterated design based on user feedback"
+            ],
+            outcomes: "The Smart Speed Bump project represents a forward-thinking approach to traffic management, with the potential to significantly reduce accidents and enhance overall road safety. By leveraging innovative technology and addressing key limitations, this project can contribute to creating safer and more efficient roadways for all users."
+        },
+        project2: {
+            title: "LearnHub - Online Learning Platform",
+            overview: "    This project is an assignment for the IKB 10304 – IT Security course, detailing an interview conducted at SIRIM Berhad to understand their IT security implementations.  The report covers SIRIM's background, history, and current technology and practices in areas such as server room and network center security, network security protocols, data integrity and accuracy measures, management of sensitive data, employee security awareness programs, incident management, use of third-party threat intelligence, their defense flowchart, and business continuity plans. The interview involved key IT personnel from SIRIM, including the Head of Computing Infrastructure and Network Section and a Senior IT Executive in Cybersecurity. ",
+            role: "Lead Interview with SIRIM - Questioning them on physical security, network security, IT governance and budgeting, data security, sensitive data security and employee security awareness.",
+            process: [
+                "Research & Analysis - Gather requirements, user needs, and constraints through interviews, surveys, and market analysis.",
+                "Conceptualization - Brainstorm ideas, sketch solutions, and define core features",
+                "Prototyping - Build preliminary models (e.g., wireframes, mockups) to visualize functionality",
+                "Evaluation & Testing - Validate prototypes via user testing, feedback, and technical QA.",
+                "Refinement - Iteratively improve the design based on test results and stakeholder input",
+                "Implementation - Develop the final product using approved tools and technologies ",
+                "Review & Documentation - Audit outcomes, document processes, and plan future iterations."
+            ],
+            outcomes: "A resilient, auditable security posture that blends physical, digital, and human layers—ensuring compliance, data integrity, and rapid threat response aligned with national standards."
+        },
+        project3: {
+            title: "Belia Bersatu Tolak Rasuah",
+            overview: "This event focusses on bringing awareness to the youth the danger of corruption as it is our country's greatest threat to it's existence.",
+            role: "AJK Teknikal - I handled the sound equipment ensuring the smoothness and the engagement of the audience for the event",
+            process: [
+                "Finding out what is the systemic issue in Malaysia",
+                "Creating awareness that giving and receiving illicit money that requires you to do special favor is illegal",
+                "History of corrupt practices in Malaysia",
+
+
+            ],
+            outcomes: "The audiences are now well aware the bad impacts that corruption can cause to our beloved country."
+        },
+        project4: {
+            title: "Car Loan Calculator",
+            overview: "This code helps user calculate their monthly payment for their choice of car that also include their loan tenure length.",
+            role: "Code Diagram Designer - I designed and make sure the flow fo the code is well organized and efficient.",
+            process: [
+                "Designing an UML Diagram.",
+                "Dividing the car brands into multiple classes.",
+                "Designed to clearly output the loan tenure lengths.",
+            ],
+            outcomes: "The output will also be recorded in a text file."
+        },
+        project5: {
+            title: "TechSolutions - Professional Services",
+            overview: "The entertaintment industry, particularly theathers has seen a significant increase in moving towards digital solutions to enhance UX. We are proposing a system that wil further improve such parameters that aim to streamline the process of purchasing tickets for our client.",
+            role: "Lead Database Developer - I am responsible for building all the database within this project.",
+            process: [
+                "Centralized Data Management: Ensure all data related to users, movies, showtimes, bookings, and payments is stored in a well-structured centralized database to maintain consistency and easy accessibility.",
+                "Efficient Query Performance:Optimize database design to support fast and efficient querying for operations like retrieving movie schedules, seat availability, and booking details, even during high-traffic periods.",
+                "Data Integrity and Security: Maintain data accuracy through normalization and implement security measures to protect sensitive user information, such as payment details and personal data, from unauthorized access.",
+            ],
+            outcomes: "Recording the ticket purchases becomes easier and automated."
+        },
+        project6: {
+            title: "Culture Day - PE1 Project",
+            overview: "We decided to showcase the significant day for the Irish, which is known as the St. Patrick's day.",
+            role: "Logistics - i am the man who carry stuff around.",
+            process: [
+                "Designing the boot according to the Irish folklore of elves and greenery.",
+                "Irish board games.",
+                "Irish mascot.",
+            ],
+            outcomes: "Succeeded showing to MIIT Students that the Irish culture is very interesting and captivating."
+        }
+    };
+
+    function openModal(projectId) {
+        const modal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+        const project = projectData[projectId];
+
+        modalContent.innerHTML = `
+            <div class="case-study">
+                <h2>${project.title}</h2>
+
+                <h3>Project Overview</h3>
+                <p>${project.overview}</p>
+
+                <h3>My Role</h3>
+                <p>${project.role}</p>
+
+                <h3>Design Process</h3>
+                <ul>
+                    ${project.process.map(step => `<li>${step}</li>`).join('')}
+                </ul>
+
+                <h3>Outcomes & Results</h3>
+                <p>${project.outcomes}</p>
+            </div>
+        `;
+
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('projectModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('projectModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Add some interactive animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    });
+</script>
+</body>
+</html>
